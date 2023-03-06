@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+  <Properties>
+    <Property name="basePath">./logs</Property>
+    <Property name="logName">textprovider.log</Property>
+    <Property name="rollingName">textprovider-%d{yyy-MM-dd}.log</Property>
+    <Property name="patternLayout">%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] %c{1} - %msg%n</Property>
+  </Properties>
+
+  <Appenders>
+    <RollingFile name="rollingFileAppender" fileName="${basePath}/${logName}"
+      filePattern="${basePath}/${rollingName}">
+      <PatternLayout pattern="${patternLayout}"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="10"/>
+    </RollingFile>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${patternLayout}"/>
+    </Console>
+  </Appenders>
+
+  <Loggers>
+    <Root level="trace" additivity="false">
+      <AppenderRef ref="rollingFileAppender"/>
+    </Root>
+  </Loggers>
+</Configuration>
